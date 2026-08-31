@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,11 +11,16 @@ struct Node *last = NULL;
 
 // Create circular linked list
 void create(int n) {
-    struct Node *newNode, *temp;
+    struct Node *newNode;
     int value, i;
 
     for (i = 1; i <= n; i++) {
         newNode = (struct Node *)malloc(sizeof(struct Node));
+
+        if (newNode == NULL) {
+            printf("Memory allocation failed.\n");
+            return;
+        }
 
         printf("Enter value for node %d: ", i);
         scanf("%d", &value);
@@ -60,6 +66,11 @@ void insertBeginning() {
 
     newNode = (struct Node *)malloc(sizeof(struct Node));
 
+    if (newNode == NULL) {
+        printf("Memory allocation failed.\n");
+        return;
+    }
+
     printf("Enter value: ");
     scanf("%d", &value);
 
@@ -72,6 +83,8 @@ void insertBeginning() {
         newNode->next = last->next;
         last->next = newNode;
     }
+
+    printf("Node inserted at beginning.\n");
 }
 
 // Insert at end
@@ -81,6 +94,11 @@ void insertEnd() {
 
     newNode = (struct Node *)malloc(sizeof(struct Node));
 
+    if (newNode == NULL) {
+        printf("Memory allocation failed.\n");
+        return;
+    }
+
     printf("Enter value: ");
     scanf("%d", &value);
 
@@ -94,6 +112,8 @@ void insertEnd() {
         last->next = newNode;
         last = newNode;
     }
+
+    printf("Node inserted at end.\n");
 }
 
 // Delete from beginning
@@ -114,6 +134,7 @@ void deleteBeginning() {
     }
 
     free(temp);
+
     printf("First node deleted.\n");
 }
 
@@ -144,10 +165,11 @@ void deleteEnd() {
     printf("Last node deleted.\n");
 }
 
-// Search
+// Search and display position
 void search() {
     struct Node *temp;
     int value;
+    int position = 1;
 
     if (last == NULL) {
         printf("List is empty.\n");
@@ -161,17 +183,19 @@ void search() {
 
     do {
         if (temp->data == value) {
-            printf("%d found in the list.\n", value);
+            printf("%d found at position %d.\n", value, position);
             return;
         }
 
         temp = temp->next;
+        position++;
 
     } while (temp != last->next);
 
     printf("%d not found.\n", value);
 }
 
+// Main function
 int main() {
     int n, choice;
 
@@ -229,3 +253,4 @@ int main() {
 
     return 0;
 }
+
