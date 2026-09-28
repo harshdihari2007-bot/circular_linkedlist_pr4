@@ -29,7 +29,6 @@ void combine(int a[], int low, int mid, int high)
     int j = mid + 1;
     int k = low;
 
-    /* Compare and combine */
     while (i <= mid && j <= high)
     {
         if (a[i] <= a[j])
@@ -45,7 +44,6 @@ void combine(int a[], int low, int mid, int high)
         k++;
     }
 
-    /* Copy remaining left elements */
     while (i <= mid)
     {
         temp[k] = a[i];
@@ -53,7 +51,6 @@ void combine(int a[], int low, int mid, int high)
         k++;
     }
 
-    /* Copy remaining right elements */
     while (j <= high)
     {
         temp[k] = a[j];
@@ -61,7 +58,6 @@ void combine(int a[], int low, int mid, int high)
         k++;
     }
 
-    /* Copy back to original array */
     for (i = low; i <= high; i++)
     {
         a[i] = temp[i];
@@ -92,11 +88,9 @@ void mergeSort(int a[], int n)
 
 int main()
 {
-    int n, i;
     int a[100];
-    int b[100];
+    int n, i, choice;
 
-    /* Take input from user */
     printf("Enter number of elements: ");
     scanf("%d", &n);
 
@@ -105,27 +99,38 @@ int main()
     for (i = 0; i < n; i++)
     {
         scanf("%d", &a[i]);
-
-        /* Copy same input for Merge Sort */
-        b[i] = a[i];
     }
 
-    /* Bubble Sort */
-    bubbleSort(a, n);
+    /* Menu */
+    printf("\nChoose Sorting Method:\n");
+    printf("1. Bubble Sort\n");
+    printf("2. Merge Sort\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
 
-    printf("\nBubble Sort: ");
+    /* Perform selected sorting method */
+    if (choice == 1)
+    {
+        bubbleSort(a, n);
+
+        printf("\nSorted using Bubble Sort: ");
+    }
+    else if (choice == 2)
+    {
+        mergeSort(a, n);
+
+        printf("\nSorted using Merge Sort: ");
+    }
+    else
+    {
+        printf("\nInvalid choice!");
+        return 0;
+    }
+
+    /* Display sorted array */
     for (i = 0; i < n; i++)
     {
         printf("%d ", a[i]);
-    }
-
-    /* Merge Sort */
-    mergeSort(b, n);
-
-    printf("\nMerge Sort:  ");
-    for (i = 0; i < n; i++)
-    {
-        printf("%d ", b[i]);
     }
 
     return 0;
